@@ -5,6 +5,7 @@
         <title>View Orders</title>
         <?php
         include ('adminheader.html');
+        //test
         ?>
 
     </head>
@@ -13,6 +14,10 @@
         <h1>View Orders</h1>
         <h2>Display all orders here by table</h2>
         <form action="displayOrder.php" method="post">
+            <a class="search-container">
+                <input type="text" placeholder="Search.." name="search">
+                <button type="submit"><i class="fa fa-search"></i></button>
+            </a>
             <label for="sortby">Sort By:</label>
             <select name="sortby">
                 <option value="none">None</option>
