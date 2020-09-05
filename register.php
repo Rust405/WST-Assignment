@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>Login</title>
+        <title>Register</title>
         <?php
         include ('header.html');
         ?>
@@ -34,7 +34,7 @@
                     </tr>
                 </table>
                 <input type="submit" name="submit" value="Create Account">
-                <button type="button" onclick="window.location = 'home.php'">Cancel</button> 
+                <button type="button" onclick="window.location = 'login.php'">Cancel</button> 
 
             </form>
 

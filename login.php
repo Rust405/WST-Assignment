@@ -28,6 +28,7 @@
 
 
             </form>
+            <p>Need an account? Register <a href="register.php">here</a></p>
         </div>
     </body>
     <?php
