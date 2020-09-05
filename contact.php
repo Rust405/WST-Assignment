@@ -23,7 +23,7 @@
                 </tr>
                 <tr>
                     <td>Message:</td>
-                    <td><textarea name="message" rows="10" cols="40"></textarea></td>
+                    <td><textarea style="resize:none"; name="message" rows="10" cols="40"></textarea></td>
                 </tr>
             </table>
             <input type="submit" name="submit" value="Send">
