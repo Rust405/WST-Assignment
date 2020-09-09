@@ -10,11 +10,7 @@
     </head>
     <body>
         <br>
-        <form action="browse.php" method="post">
-            <a class="search-container">
-                <input type="text" placeholder="Search..." name="search">
-                <button type="submit"><i class="fa fa-search"></i></button>
-            </a>
+        <form action="browse.php" method="GET">
             <label for="filter">Filter:</label>
             <select name="filter">
                 <option value="none">None</option>
@@ -31,7 +27,13 @@
                 <option value="LH">Price, low to high</option>
                 <option value="HL">Price, high to low</option>
             </select>
-            <input type='submit' name='submit' value='Filter/Sort'>
+
+            <a class="search-container">
+                <input type="text" placeholder="Search..." name="s">
+                <button type="submit" ><i class="fa fa-search"></i></button>
+            </a>
+
+
 
 
         </form>
