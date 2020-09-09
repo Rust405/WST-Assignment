@@ -16,7 +16,7 @@
                 resize: vertical;
             }
             select {
-                width: 20%;
+                width: 18%;
                 padding: 5px;
                 border: 1px solid #ccc;
                 border-radius: 4px;
@@ -83,14 +83,6 @@
         <div class="container">
             <form action="browse.php" method="GET">
                 <div class="row">
-                    <label for="filter">Filter:</label>
-                    <select name="filter">
-                        <option value="none">None</option>
-                        <option value="A">A</option>
-                        <option value="B">B</option>
-                        <option value="C">C</option>
-                    </select>
-
                     <label for="sortby">Sort By:</label>
                     <select name="sortby">
                         <option value="none">None</option>
