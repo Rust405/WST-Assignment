@@ -97,20 +97,18 @@
                         <input type="text" placeholder="Search..." name="s">
                         <button type="submit" ><i class="fa fa-search"></i></button>
                     </a>
-
-
                 </div>
-
             </form>
         </div>
+        
+       <?php
+       
+       
+       
+       ?>
+        
 
 
-
-
-
-
-
-    </form>
 
     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent id blandit ex. Fusce a varius erat, non interdum lectus. Sed quis hendrerit mauris, a vehicula nunc.
         Maecenas dictum tincidunt pellentesque. Pellentesque placerat dolor sit amet neque feugiat faucibus. Donec non velit at leo sodales fermentum et sed mi.
