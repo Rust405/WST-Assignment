@@ -71,6 +71,8 @@
                 margin-right:10%;
                 margin-left:50%;
                 border: 3px solid #00045B;
+                margin-top:25px;
+                margin-bottom:25px;
             }
 
             .col-25 {
@@ -101,18 +103,23 @@
                     margin-top: 0;
                 }
             }
+
+            body{
+                background-image:url('images/background2.jpg');
+                background-repeat: no-repeat;
+                background-size: 100% 100%;
+            }
         </style>      
 
     </head>
     <body>
         <br>
         <div class="containerForm">
-            
-           <?php
+
+            <?php
             //insert into customer table
-   
             ?>
-            
+
             <form action="register.php" method="post">
                 <div class="row">
                     <div class="col-25">
@@ -140,7 +147,7 @@
                         <input   type="email" id="email" name="email" placeholder="E-mail...">
                     </div>
                 </div>
-                
+
                 <div class="row">
                     <div class="col-25">
                         <label for="phone">Phone Number:</label>
@@ -174,7 +181,7 @@
 
 
 
-              
+
             </form>
         </div>
     </body>

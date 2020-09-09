@@ -54,10 +54,12 @@
                 box-sizing: border-box;
                 border-radius: 5px;
                 background-color: #f2f2f2;
-                padding: 20px;
+                padding: 45px;
                 margin-right:10%;
                 margin-left:50%;
-                border: 3px solid #00045B;
+                border: 4px solid #00045B;
+                margin-top:78px;
+                margin-bottom:78px;
             }
 
             .col-25 {
@@ -85,18 +87,24 @@
                     margin-top: 0;
                 }
             }
+
+            body{
+                background-image:url('images/background2.jpg');
+                background-repeat: no-repeat;
+                background-size: 100% 100%;
+            }
+
+
         </style>
     </head>
     <body>
         <br>
         <div class="containerForm">
-            
+
             <?php
             //compare with customer table
-            
-            
             ?>
-            
+
             <form action="login.php" method="post">
                 <div class="row">
                     <div class="col-25">
@@ -115,7 +123,7 @@
                         <input  type="password" id="password" name="password" placeholder="Password...">
                     </div>
                 </div>
-               
+
                 <br>
                 <div class="row">
                     <input type="submit" value="Login">
@@ -130,12 +138,12 @@
         </div>
 
 
-
-
-
-
     </body>
+
+
     <?php
     include ('footer.html');
-    ?>
+    ?>   
+
+
 </html>

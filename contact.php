@@ -22,7 +22,7 @@
                 border-radius: 4px;
                 resize: vertical;
             }
-     
+
 
             label {
                 padding: 12px 12px 12px 0;
@@ -59,6 +59,8 @@
                 margin-right:10%;
                 margin-left:50%;
                 border: 3px solid #00045B;
+                margin-top:30px;
+                margin-bottom:30px;
             }
 
             .col-25 {
@@ -92,6 +94,11 @@
                     width: 100%;
                     margin-top: 0;
                 }
+            }
+            body{
+                background-image:url('images/background3.jpg');
+                background-repeat: no-repeat;
+                background-size: 100% 100%;
             }
         </style> 
     </head>
