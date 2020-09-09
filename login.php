@@ -28,7 +28,7 @@
 
 
             </form>
-            <p>Need an account? Register <a href="register.php">here</a></p>
+            <p>Need an account? <a href="register.php">Register here</a></p>
         </div>
     </body>
     <?php
