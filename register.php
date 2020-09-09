@@ -5,6 +5,7 @@
         <title>Register</title>
         <?php
         include ('header.html');
+        require_once('mysqli_connect.php');
         ?>
         <style>
             input[type=text]{
