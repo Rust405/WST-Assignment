@@ -6,6 +6,47 @@
         <?php
         include ('header.html');
         ?>
+        <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+        <script type="text/javascript" src="scripts/jquery-1.9.1.js"></script>
+
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $("#toggleSuggestion").click(
+                        function () {
+                            $("#suggestion").toggle();
+                        }
+                );
+            });
+
+        </script>
+
+        <script>
+            function showHint(str)
+            {
+                var xmlhttp;
+                if (str.length == 0)
+                {
+                    document.getElementById("txtHint").innerHTML = "";
+                    return;
+                }
+                if (window.XMLHttpRequest)
+                {// code for IE7+, Firefox, Chrome, Opera, Safari
+                    xmlhttp = new XMLHttpRequest();
+                } else
+                {// code for IE6, IE5
+                    xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+                }
+                xmlhttp.onreadystatechange = function ()
+                {
+                    if (xmlhttp.readyState == 4 && xmlhttp.status == 200)
+                    {
+                        document.getElementById("txtHint").innerHTML = xmlhttp.responseText;
+                    }
+                }
+                xmlhttp.open("GET", "gethint.php?q=" + str, true);
+                xmlhttp.send();
+            }
+        </script>
         <style>
 
             input[type=text] {
@@ -85,6 +126,13 @@
                 padding: 10px;
             }
 
+            #toggleSuggestion{
+                font-size:11pt;
+            }
+            #toggleSuggestion:hover{
+                cursor:pointer;
+            }
+
 
         </style>
     </head>
@@ -146,16 +194,25 @@
 
 
                     <a class="search-container">
-                        <input type="text" placeholder="Search..." name="search" value="<?php
+                        <input onkeyup="showHint(this.value)" type="text" placeholder="Search..." name="search" value="<?php
                         if (isset($_GET['search'])) {
                             $search = $_GET['search'];
                             echo "$search";
                         }
                         ?>">
                         <button type="submit" ><i class="fa fa-search"></i></button>
+                        <a id="toggleSuggestion" >Toggle Suggestions</a>
                     </a>
                 </div>
+
             </form>
+
+            <div id="suggestion">
+                <p>Suggestions: <span id="txtHint"></span></p>   
+            </div>
+
+
+
         </div>
         <br>
 
@@ -172,12 +229,11 @@
         $order = ""; //ORDER
         $where = ""; //LIKE
         $sort = NULL;
+        $search = NULL;
 
         if (isset($_GET['search'])) {
             $search = $_GET['search'];
-
-            $where = "WHERE prod_name LIKE '%". "$search" . "%'";
-           
+            $where = "WHERE prod_name LIKE '%" . "$search" . "%'";
         }
 
         if (isset($_GET['sortby'])) {
@@ -260,10 +316,16 @@
             if ($sort == NULL) {
                 $l = "";
             }
+            if ($search != NULL) {
+                $m = "&search=$search";
+            }
+            if ($search == NULL) {
+                $m = "";
+            }
 
             for ($i = 0; $i < $numOfPage; $i++) {
                 $a = $i + 1;
-                printf(" <a href='browse.php?page=%d%s'>%d</a> ", $a, $l, $a);
+                printf(" <a href='browse.php?page=%d%s%s'>%d</a> ", $a, $l, $m, $a);
             }
             echo "</p>";
         }
