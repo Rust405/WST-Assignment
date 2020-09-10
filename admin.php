@@ -10,7 +10,7 @@
     </head>
     <body>
         <h1>Admin Home</h1>
-        <h2>Display all products here?</h2>
+        <h2>Display product list maybe</h2>
         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent id blandit ex. Fusce a varius erat, non interdum lectus. Sed quis hendrerit mauris, a vehicula nunc.
             Maecenas dictum tincidunt pellentesque. Pellentesque placerat dolor sit amet neque feugiat faucibus. Donec non velit at leo sodales fermentum et sed mi.
             Phasellus ultrices nisl a ornare suscipit. Aliquam elementum ultricies erat ac vulputate. Pellentesque dignissim augue ut est pellentesque, sit amet fermentum erat egestas.

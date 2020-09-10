@@ -13,7 +13,7 @@
             $(document).ready(function () {
                 $("#toggleSuggestion").click(
                         function () {
-                            $("#suggestion").toggle();
+                            $("#suggestion").fadeToggle();
                         }
                 );
             });
@@ -201,7 +201,7 @@
                         }
                         ?>">
                         <button type="submit" ><i class="fa fa-search"></i></button>
-                        <a id="toggleSuggestion" >Toggle Suggestions</a>
+                        <a id="toggleSuggestion" style="color:#00045B;">Toggle Suggestions</a>
                     </a>
                 </div>
 
@@ -262,8 +262,8 @@
 
         $q = "SELECT * from product " . " $where " . " $columnName " . " $order ";
 
-
         $result = @mysqli_query($dbc, $q);
+        
         $numOfResult = @mysqli_num_rows($result);
         $numOfPage = $numOfResult / 10.00;
 
@@ -330,7 +330,7 @@
             echo "</p>";
         }
 
-
+        @mysqli_free_result($result);
         @mysqli_close($dbc);
         ?>
 

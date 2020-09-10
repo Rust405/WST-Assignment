@@ -103,6 +103,90 @@
 
             <?php
             //compare with customer table
+            require_once('mysqli_connect.php');
+
+            if (isset($_POST['submit'])) {
+                $email = trim($_POST['email']);
+                $password = trim($_POST['password']);
+                $error = false;
+                $message = array();
+
+                $logonName;
+                $userType;   //whether or not to go to admin home page
+                //validate email
+                if ($email == NULL) {
+                    $message[] = "Please enter your <strong>e-mail</strong>.";
+                    $error = true;
+                }
+
+                //validate password
+                if ($password == NULL) {
+                    $message[] = "Please enter your <strong>password</strong>.";
+                    $error = true;
+                }
+
+                if ($error == true) {
+                    echo "<ul class='notok'>";
+                    foreach ($message as $m) {
+                        echo "<li>$m</li>";
+                    }
+                    echo "</ul>";
+                }
+
+                //no submit error
+                if ($error == false) {
+                    //compare with customer and admin database
+                    $checkCustomer = "SELECT * FROM customer";
+                    $checkAdmin = "SELECT * FROM admin";
+
+                    $checkC = mysqli_query($dbc, $checkCustomer);
+                    $checkA = mysqli_query($dbc, $checkAdmin);
+
+                    //check customer table
+                    while ($row = $checkC->fetch_object()) {
+                        if ($email == $row->cust_email) {
+                            $logonName = $row->cust_fname;
+                            $getPassword = $row->cust_password;
+                            $userType = "customer";
+                            break;
+                        } else {
+                            $logonName = NULL; //not customer
+                        }
+                    }
+                    //if not customer, then check admin table
+                    if ($logonName == NULL) {
+                        while ($row = $checkA->fetch_object()) {
+                            if ($email == $row->admin_email) {
+                                $logonName = $row->admin_name;
+                                $getPassword = $row->admin_password;
+                                $userType = "admin";
+                                break;
+                            } else {
+                                $logonName = NULL;
+                            }
+                        }
+                    }
+
+                    //if user does not exist
+                    if ($logonName == NULL) {
+                        echo "User does not exist!";
+                    }
+
+                    //if user exists
+                    if ($logonName != NULL) {
+                        //password check
+                        if (password_verify($password,$getPassword)) {
+                          
+                            $alert = "Login Successful. Welcome $logonName!";
+                           echo "<script type='text/javascript'>alert('$alert');</script>";
+                        } else {
+                            echo '<ul><li class="notok">Password is incorrect.</li></ul>';
+                        }
+                    }
+                }
+            }//end submit
+
+            @mysqli_close($dbc);
             ?>
 
             <form action="login.php" method="post">
@@ -111,7 +195,13 @@
                         <label for="email">E-mail:</label>
                     </div>
                     <div class="col-75">
-                        <input type="email" id="email" name="email" placeholder="E-mail...">
+                        <input type="email" id="email" name="email" placeholder="E-mail..."
+                               value="<?php
+                               if (isset($_POST['email'])) {
+                                   echo $_POST['email'];
+                               } else
+                                   echo "";
+                               ?>">
                     </div>
                 </div>
 
@@ -120,13 +210,19 @@
                         <label for="password">Password:</label>
                     </div>
                     <div class="col-75">
-                        <input  type="password" id="password" name="password" placeholder="Password...">
+                        <input  type="password" id="password" name="password" placeholder="Password..."
+                                value="<?php
+                                if (isset($_POST['password'])) {
+                                    echo $_POST['password'];
+                                } else
+                                    echo "";
+                                ?>">
                     </div>
                 </div>
 
                 <br>
                 <div class="row">
-                    <input type="submit" value="Login">
+                    <input type="submit" name="submit" value="Login">
                 </div>
 
 

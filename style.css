@@ -14,7 +14,7 @@ body {
     background-color: #00045B;
     color: #FFEE64;
     padding: 2px;
- 
+
 }
 
 .topnav a {
@@ -59,16 +59,31 @@ body {
 }
 
 .search-container button {
-  padding: 6px 10px;
-  margin-top: 8px;
-  margin-right: 16px;
-  background: #00045B;
-  font-size: 14px;
-  border: none;
-  cursor: pointer;
-  color:white;
+    padding: 6px 10px;
+    margin-top: 8px;
+    margin-right: 16px;
+    background: #00045B;
+    font-size: 14px;
+    border: none;
+    cursor: pointer;
+    color:white;
 }
 
 .search-container button:hover {
-  background: #ccc;
+    background: #ccc;
 }
+
+.ok{
+    list-style-type:circle;
+    background-color:#cce6ff;
+    color:#0066cc;
+    border: solid 1px #0066cc;
+    line-height: 2em;
+    padding:4px;
+}
+
+.notok{
+    list-style-type:circle;
+    color:#cc0000;
+    line-height: 1.5em;
+} 

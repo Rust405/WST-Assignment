@@ -2,9 +2,9 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>Register</title>
+        <title>Register Admin</title>
         <?php
-        include ('header.html');
+        include ('adminheader.html');
         ?>
         <style>
             input[type=text]{
@@ -121,8 +121,8 @@
             require_once('mysqli_connect.php');
 
             if (isset($_POST['submit'])) {
-                $fname = trim($_POST['fname']);
-                $lname = trim($_POST['lname']);
+                $name = trim($_POST['name']);
+             
                 $email = trim($_POST['email']);
                 $phone = trim($_POST['phone']);
                 $password = trim($_POST['password']);
@@ -131,22 +131,13 @@
                 $message = array();
 
                 //validate name
-                if ($fname == NULL) {
+                if ($name == NULL) {
                     $error = true;
-                    $message[] = "Please enter your <strong>first name</strong>.";
+                    $message[] = "Please enter your <strong>name</strong>.";
                 }
                 $namePattern = "/[A-Za-z]{1,30}$/";
-                if ($fname != NULL && (preg_match($namePattern, $fname)) == false) {
-                    $message[] = "<strong>First Name</strong> can contain only uppercase and lowercase alphabet.";
-                    $error = true;
-                }
-
-                if ($lname == NULL) {
-                    $error = true;
-                    $message[] = "Please enter your <strong>last name</strong>.";
-                }
-                if ($lname != NULL && (preg_match($namePattern, $lname)) == false) {
-                    $message[] = "<strong>Last Name</strong> can contain only uppercase and lowercase alphabet.";
+                if ($name != NULL && (preg_match($namePattern, $name)) == false) {
+                    $message[] = "<strong>Name</strong> can contain only uppercase and lowercase alphabet.";
                     $error = true;
                 }
 
@@ -157,10 +148,10 @@
                 }
 
                 //email existence check
-                $obtain = "SELECT * FROM customer";
+                $obtain = "SELECT * FROM admin";
                 $result = mysqli_query($dbc, $obtain);
                 while ($row = $result->fetch_object()) {
-                    if ($email == $row->cust_email) {
+                    if ($email == $row->admin_email) {
                         $error = true;
                         $message[] = "An account is already registered to this e-mail!";
                     }
@@ -218,13 +209,13 @@
                     //encrupt password
                     $hash = password_hash($password, PASSWORD_DEFAULT, ['cost' => 12]);
 
-                    $send = "INSERT INTO customer (cust_fname,cust_lname,cust_password,cust_email,cust_phone) VALUES ('$fname','$lname','$hash','$email','$phone')";
+                    $send = "INSERT INTO admin (admin_name,admin_password,admin_email,admin_phone) VALUES ('$name','$hash','$email','$phone')";
                     mysqli_query($dbc, $send);
 
 
                     echo "<div class='ok'>Account successfully created. <a href='login.php'>Login</a> to continue.</div>";
 
-            
+                  
                 }
             }
 
@@ -234,32 +225,18 @@
             @mysqli_close($dbc);
             ?>
 
-            <form action="register.php" method="post">
-                <div class="row">
-                    <div class="col-25">
-                        <label for="fname">First Name:</label>
-                    </div>
-                    <div class="col-75">
-                        <input type="text" id="fname" name="fname" placeholder="John"
-                               value="<?php
-                               if (isset($_POST['fname'])) {
-                                   echo $_POST['fname'];
-                               } else
-                                   echo "";
-                               ?>"
-                               >
-                    </div>
-                </div>
+            <form action="registerAdmin.php" method="post">
+          
 
                 <div class="row">
                     <div class="col-25">
-                        <label for="lname">Last Name:</label>
+                        <label for="name">Name:</label>
                     </div>
                     <div class="col-75">
-                        <input   type="text" id="lname" name="lname" placeholder="Smith"
+                        <input   type="text" id="name" name="name" placeholder="John Smith"
                                  value="<?php
-                                 if (isset($_POST['lname'])) {
-                                     echo $_POST['lname'];
+                                 if (isset($_POST['name'])) {
+                                     echo $_POST['name'];
                                  } else
                                      echo "";
                                  ?>"
@@ -332,7 +309,7 @@
                 </div>
                 <br>
                 <div class="row">
-                    <input type="submit" name="submit" value="Register">
+                    <input type="submit" name="submit" value="Register Admin">
                 </div>
             </form>
         </div>
