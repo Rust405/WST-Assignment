@@ -5,6 +5,7 @@
         <title>Login</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <?php
+        //start session for login
         include ('header.html');
         require_once('mysqli_connect.php');
         ?>
@@ -102,7 +103,14 @@
         <div class="containerForm">
 
             <?php
+            if (isset($_GET['logout'])) {
+                $_SESSION = array();
+                session_destroy();
+                echo '<script type="text/javascript">window.location="home.php";</script>';
+            }
+
             //compare with customer table
+            $completed = false;
             require_once('mysqli_connect.php');
 
             if (isset($_POST['submit'])) {
@@ -147,6 +155,7 @@
                         if ($email == $row->cust_email) {
                             $logonName = $row->cust_fname;
                             $getPassword = $row->cust_password;
+                            $logonUserID = $row->cust_id;
                             $userType = "customer";
                             break;
                         } else {
@@ -159,6 +168,7 @@
                             if ($email == $row->admin_email) {
                                 $logonName = $row->admin_name;
                                 $getPassword = $row->admin_password;
+                                $logonUserID = $row->admin_id;
                                 $userType = "admin";
                                 break;
                             } else {
@@ -169,16 +179,25 @@
 
                     //if user does not exist
                     if ($logonName == NULL) {
-                        echo "User does not exist!";
+                        echo "<div class='notok'>User does not exist!</div>";
                     }
 
                     //if user exists
                     if ($logonName != NULL) {
                         //password check
-                        if (password_verify($password,$getPassword)) {
-                          
-                            $alert = "Login Successful. Welcome $logonName!";
-                           echo "<script type='text/javascript'>alert('$alert');</script>";
+                        if (password_verify($password, $getPassword)) {
+                            $completed = true;
+
+                            $_SESSION['userName'] = "$logonName";
+                            $_SESSION['userType'] = "$userType";
+                            $_SESSION['userID'] = "$logonUserID";
+
+                            if ($userType == "customer") {
+                                echo '<script type="text/javascript">window.location="home.php";</script>';
+                            }
+                            if ($userType == "admin") {
+                            echo '<script type="text/javascript">window.location="admin.php";</script>';
+            }
                         } else {
                             echo '<ul><li class="notok">Password is incorrect.</li></ul>';
                         }
@@ -197,11 +216,11 @@
                     <div class="col-75">
                         <input type="email" id="email" name="email" placeholder="E-mail..."
                                value="<?php
-                               if (isset($_POST['email'])) {
-                                   echo $_POST['email'];
-                               } else
-                                   echo "";
-                               ?>">
+            if (isset($_POST['email']) && $completed == false) {
+                echo $_POST['email'];
+            } else
+                echo "";
+            ?>">
                     </div>
                 </div>
 
@@ -212,11 +231,11 @@
                     <div class="col-75">
                         <input  type="password" id="password" name="password" placeholder="Password..."
                                 value="<?php
-                                if (isset($_POST['password'])) {
-                                    echo $_POST['password'];
-                                } else
-                                    echo "";
-                                ?>">
+                               if (isset($_POST['password']) && $completed == false) {
+                                   echo $_POST['password'];
+                               } else
+                                   echo "";
+            ?>">
                     </div>
                 </div>
 

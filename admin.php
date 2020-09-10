@@ -36,6 +36,6 @@
             Proin ac velit turpis. Donec lectus mauris, ullamcorper id tortor ut, condimentum vehicula ligula. Nunc commodo risus velit. </p>
     </body>
     <?php
-    include ('footer.html');
+    include ('adminfooter.html');
     ?>
 </html>

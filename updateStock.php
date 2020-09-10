@@ -39,6 +39,6 @@
 
     </body>
     <?php
-    include ('footer.html');
+    include ('adminfooter.html');
     ?>
 </html>

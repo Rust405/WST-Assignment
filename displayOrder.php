@@ -38,6 +38,6 @@
         "Product" <a href="fulfillOrder.php">Fulfill</a>
     </body>
     <?php
-    include ('footer.html');
+    include ('adminfooter.html');
     ?>
 </html>

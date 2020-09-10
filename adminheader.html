@@ -1,33 +1,42 @@
 <!DOCTYPE html>
 <html>
- 
-        <link rel="stylesheet" href="style.css" type="text/css" media="screen" />
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-        <div class="logo"> 
-            <table>
-                <tr>
-                    <td rowspan="2"><a href="admin.php"><img src="images/logo.png" alt="logo" width="48" height="48"></a></td>
-                   <td><a>正東文具有限公司</a><br></td> 
-                </tr>
-                <tr>
-                    <td><a>A A STATIONERY SDN. BHD.</a></td> 
-                </tr>
-        
-        
-       
-            </table>
-        </div>
+    <link rel="stylesheet" href="style.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-        <div class="topnav" id="myTopnav">
-            <a href="addProduct.php" class="active">Product</a>
-            <a href="displayOrder.php">Orders</a>
-            <a href="#">//Name//</a>
-            <a href="javascript:void(0);" class="icon" onclick="myFunction()">
-                <i class="fa fa-bars"></i>
-            </a>
-            </div>
+    <div class="logo"> 
+        <table>
+            <tr>
+                <td rowspan="2"><a href="admin.php"><img src="images/logo.png" alt="logo" width="48" height="48"></a></td>
+                <td><a>正東文具有限公司</a><br></td> 
+            </tr>
+            <tr>
+                <td><a>A A STATIONERY SDN. BHD.</a></td> 
+            </tr>
+
+
+
+        </table>
+    </div>
+
+    <div class="topnav" id="myTopnav">
+        <a href="admin.php">Home</a>
+        <a href="addProduct.php">Product</a>
+        <a href="displayOrder.php">Orders</a>
+     
+         <?php
+        session_start();
+        if (isset($_SESSION['userName'])) {
+        echo "<a href='adminProfile.php'>" . $_SESSION['userName'] . "</a>";
+        } 
+        ?>
+      
+        <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+            <i class="fa fa-bars"></i>
+        </a>
+        <a href="registerAdmin.php">Register Admin</a>
+    </div>
 
     <script>
         function myFunction() {

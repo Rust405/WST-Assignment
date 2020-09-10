@@ -114,12 +114,11 @@
     </head>
     <body>
         <br>
-
         <div class = "containerForm">
             <?php
             //insert into customer table
             require_once('mysqli_connect.php');
-
+            $completed = false;
             if (isset($_POST['submit'])) {
                 $fname = trim($_POST['fname']);
                 $lname = trim($_POST['lname']);
@@ -129,6 +128,7 @@
                 $cpassword = trim($_POST['cpassword']);
                 $error = false;
                 $message = array();
+
 
                 //validate name
                 if ($fname == NULL) {
@@ -150,7 +150,7 @@
                     $error = true;
                 }
 
-                //validate email
+                //validate emails
                 if ($email == NULL) {
                     $message[] = "An <strong>e-mail</strong> is required to create an account.";
                     $error = true;
@@ -161,6 +161,15 @@
                 $result = mysqli_query($dbc, $obtain);
                 while ($row = $result->fetch_object()) {
                     if ($email == $row->cust_email) {
+                        $error = true;
+                        $message[] = "An account is already registered to this e-mail!";
+                    }
+                }
+                 //email existence check
+                $obtain = "SELECT * FROM admin";
+                $result = mysqli_query($dbc, $obtain);
+                while ($row = $result->fetch_object()) {
+                    if ($email == $row->admin_email) {
                         $error = true;
                         $message[] = "An account is already registered to this e-mail!";
                     }
@@ -223,8 +232,7 @@
 
 
                     echo "<div class='ok'>Account successfully created. <a href='login.php'>Login</a> to continue.</div>";
-
-            
+                    $completed = true;
                 }
             }
 
@@ -242,7 +250,7 @@
                     <div class="col-75">
                         <input type="text" id="fname" name="fname" placeholder="John"
                                value="<?php
-                               if (isset($_POST['fname'])) {
+                               if (isset($_POST['fname']) && $completed == false) {
                                    echo $_POST['fname'];
                                } else
                                    echo "";
@@ -258,7 +266,7 @@
                     <div class="col-75">
                         <input   type="text" id="lname" name="lname" placeholder="Smith"
                                  value="<?php
-                                 if (isset($_POST['lname'])) {
+                                 if (isset($_POST['lname']) && $completed == false) {
                                      echo $_POST['lname'];
                                  } else
                                      echo "";
@@ -274,7 +282,7 @@
                     <div class="col-75">
                         <input   type="email" id="email" name="email" placeholder="E-mail..."
                                  value="<?php
-                                 if (isset($_POST['email'])) {
+                                 if (isset($_POST['email']) && $completed == false) {
                                      echo $_POST['email'];
                                  } else
                                      echo "";
@@ -290,7 +298,7 @@
                     <div class="col-75">
                         <input   type="tel" id="phone" name="phone" 
                                  value="<?php
-                                 if (isset($_POST['phone'])) {
+                                 if (isset($_POST['phone']) && $completed == false) {
                                      echo $_POST['phone'];
                                  } else
                                      echo "+60";
@@ -305,7 +313,7 @@
                     <div class="col-75">
                         <input   type="password" id="password" name="password" placeholder="Password..."
                                  value="<?php
-                                 if (isset($_POST['password'])) {
+                                 if (isset($_POST['password']) && $completed == false) {
                                      echo $_POST['password'];
                                  } else
                                      echo "";
@@ -322,7 +330,7 @@
                         <input  type="password" id="cpassword" name="cpassword" placeholder="Confirm Password..."
 
                                 value="<?php
-                                if (isset($_POST['cpassword'])) {
+                                if (isset($_POST['cpassword']) && $completed == false) {
                                     echo $_POST['cpassword'];
                                 } else
                                     echo "";

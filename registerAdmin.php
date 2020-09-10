@@ -118,11 +118,11 @@
         <div class = "containerForm">
             <?php
             //insert into customer table
+            $completed = false;
             require_once('mysqli_connect.php');
 
             if (isset($_POST['submit'])) {
                 $name = trim($_POST['name']);
-             
                 $email = trim($_POST['email']);
                 $phone = trim($_POST['phone']);
                 $password = trim($_POST['password']);
@@ -152,6 +152,14 @@
                 $result = mysqli_query($dbc, $obtain);
                 while ($row = $result->fetch_object()) {
                     if ($email == $row->admin_email) {
+                        $error = true;
+                        $message[] = "An account is already registered to this e-mail!";
+                    }
+                }
+                $obtain = "SELECT * FROM customer";
+                $result = mysqli_query($dbc, $obtain);
+                while ($row = $result->fetch_object()) {
+                    if ($email == $row->cust_email) {
                         $error = true;
                         $message[] = "An account is already registered to this e-mail!";
                     }
@@ -214,8 +222,7 @@
 
 
                     echo "<div class='ok'>Account successfully created. <a href='login.php'>Login</a> to continue.</div>";
-
-                  
+                    $completed = true;
                 }
             }
 
@@ -226,7 +233,7 @@
             ?>
 
             <form action="registerAdmin.php" method="post">
-          
+
 
                 <div class="row">
                     <div class="col-25">
@@ -235,7 +242,7 @@
                     <div class="col-75">
                         <input   type="text" id="name" name="name" placeholder="John Smith"
                                  value="<?php
-                                 if (isset($_POST['name'])) {
+                                 if (isset($_POST['name']) && $completed == false) {
                                      echo $_POST['name'];
                                  } else
                                      echo "";
@@ -251,7 +258,7 @@
                     <div class="col-75">
                         <input   type="email" id="email" name="email" placeholder="E-mail..."
                                  value="<?php
-                                 if (isset($_POST['email'])) {
+                                 if (isset($_POST['email']) && $completed == false) {
                                      echo $_POST['email'];
                                  } else
                                      echo "";
@@ -267,7 +274,7 @@
                     <div class="col-75">
                         <input   type="tel" id="phone" name="phone" 
                                  value="<?php
-                                 if (isset($_POST['phone'])) {
+                                 if (isset($_POST['phone']) && $completed == false) {
                                      echo $_POST['phone'];
                                  } else
                                      echo "+60";
@@ -282,7 +289,7 @@
                     <div class="col-75">
                         <input   type="password" id="password" name="password" placeholder="Password..."
                                  value="<?php
-                                 if (isset($_POST['password'])) {
+                                 if (isset($_POST['password']) && $completed == false) {
                                      echo $_POST['password'];
                                  } else
                                      echo "";
@@ -299,7 +306,7 @@
                         <input  type="password" id="cpassword" name="cpassword" placeholder="Confirm Password..."
 
                                 value="<?php
-                                if (isset($_POST['cpassword'])) {
+                                if (isset($_POST['cpassword']) && $completed == false) {
                                     echo $_POST['cpassword'];
                                 } else
                                     echo "";

@@ -121,7 +121,7 @@
                         <label for="email">E-mail:</label>
                     </div>
                     <div class="col-75">
-                        <input type="email" id="email" name="email" placeholder="E-mail...">
+                        <input type="email" id="email" name="email" placeholder="E-mail..." required>
                     </div>
                 </div>
 
@@ -130,7 +130,7 @@
                         <label for="message">Subject</label>
                     </div>
                     <div class="col-75">
-                        <textarea id="message" name="message" placeholder="Message..." style="height:200px"></textarea>
+                        <textarea id="message" name="message" placeholder="Message..." style="height:200px" required></textarea>
                     </div>
                 </div>
                 <div class="row">
