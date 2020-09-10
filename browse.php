@@ -98,6 +98,7 @@
                 background-color: #f2f2f2;
                 padding: 10px;
                 box-sizing: border-box;
+                box-shadow: 10px 10px 5px #ccc;
             }
 
 
@@ -122,7 +123,10 @@
             }
             .productTD{
                 text-align:left;
-                border:2px solid #ccc;
+                border:4px solid white;
+                background-color: #f2f2f2;
+                border-radius: 10px;
+                box-shadow: 10px 10px 5px #ccc;
                 padding: 10px;
             }
 
@@ -132,7 +136,7 @@
             #toggleSuggestion:hover{
                 cursor:pointer;
             }
-
+        
 
         </style>
     </head>
@@ -263,7 +267,7 @@
         $q = "SELECT * from product " . " $where " . " $columnName " . " $order ";
 
         $result = @mysqli_query($dbc, $q);
-        
+
         $numOfResult = @mysqli_num_rows($result);
         $numOfPage = $numOfResult / 10.00;
 
@@ -298,7 +302,7 @@
 
             for ($i = 0 + (10 * ($currentPageNumber - 1)); $i < $limit; $i++) {
                 echo "<tr>";
-                echo "<td  class='productTD'><a href=product.php?id=$productID[$i]><img src='images/$productID[$i]" . ".jpg' height='128px' width='128px'></a></td>";
+                echo "<td  class='productTD'><a href=product.php?id=$productID[$i]><img src='images/$productName[$i]" . ".jpg' height='128px' width='128px'></a></td>";
                 echo "<td  class='productTD' style=' width:70%;'><a style ='text-decoration:none;color:black;' href=product.php?id=$productID[$i]><b>$productName[$i]</b></a></td>";
                 printf("<td class='productTD' ><a style ='text-decoration:none;color:black;' href=product.php?id=$productID[$i]><b>RM %0.2f</b></a></td>", $productPrice[$i]);
                 echo "</tr>";

@@ -73,6 +73,7 @@
                 border: 3px solid #00045B;
                 margin-top:25px;
                 margin-bottom:25px;
+                box-shadow: 4px 4px 6px black;
             }
 
             .col-25 {
@@ -165,7 +166,7 @@
                         $message[] = "An account is already registered to this e-mail!";
                     }
                 }
-                 //email existence check
+                //email existence check
                 $obtain = "SELECT * FROM admin";
                 $result = mysqli_query($dbc, $obtain);
                 while ($row = $result->fetch_object()) {

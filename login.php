@@ -61,6 +61,7 @@
                 border: 4px solid #00045B;
                 margin-top:78px;
                 margin-bottom:78px;
+                box-shadow: 4px 4px 6px black;
             }
 
             .col-25 {
@@ -196,8 +197,8 @@
                                 echo '<script type="text/javascript">window.location="home.php";</script>';
                             }
                             if ($userType == "admin") {
-                            echo '<script type="text/javascript">window.location="admin.php";</script>';
-            }
+                                echo '<script type="text/javascript">window.location="admin.php";</script>';
+                            }
                         } else {
                             echo '<ul><li class="notok">Password is incorrect.</li></ul>';
                         }
@@ -216,11 +217,11 @@
                     <div class="col-75">
                         <input type="email" id="email" name="email" placeholder="E-mail..."
                                value="<?php
-            if (isset($_POST['email']) && $completed == false) {
-                echo $_POST['email'];
-            } else
-                echo "";
-            ?>">
+                               if (isset($_POST['email']) && $completed == false) {
+                                   echo $_POST['email'];
+                               } else
+                                   echo "";
+                               ?>">
                     </div>
                 </div>
 
@@ -231,11 +232,11 @@
                     <div class="col-75">
                         <input  type="password" id="password" name="password" placeholder="Password..."
                                 value="<?php
-                               if (isset($_POST['password']) && $completed == false) {
-                                   echo $_POST['password'];
-                               } else
-                                   echo "";
-            ?>">
+                                if (isset($_POST['password']) && $completed == false) {
+                                    echo $_POST['password'];
+                                } else
+                                    echo "";
+                                ?>">
                     </div>
                 </div>
 
