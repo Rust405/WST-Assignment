@@ -70,10 +70,9 @@
                 padding: 20px;
                 margin-right:10%;
                 margin-left:50%;
-                border: 3px solid #00045B;
                 margin-top:25px;
                 margin-bottom:25px;
-                box-shadow: 4px 4px 6px black;
+                box-shadow: 5px 5px 10px black;
             }
 
             .col-25 {

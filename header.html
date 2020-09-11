@@ -3,7 +3,7 @@
     <link rel="stylesheet" href="style.css" type="text/css" media="screen" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
+    <link rel="shortcut icon" type="image/png" href="images/logo.png"/>
 
 
     <div class="logo"> 
@@ -39,9 +39,14 @@
         echo '<a href="login.php">Login</a>';
         }
         ?>
-        
 
-        <a href="cart.php" style="float:right;"><i class="fa fa-shopping-cart" style="font-size:24px"></i></a>
+        <?php
+        if(isset($_COOKIE['quantity'])){
+        echo '<a href="cart.php" style="float:right;"><i class="fa fa-shopping-cart" style="font-size:24px"></i></a>';
+        }else{
+        echo '<a href="cart.php" style="float:right;"><i class="fa fa-opencart" style="font-size:24px"></i></a>';
+        }
+        ?>
     </div>
 
     <script>

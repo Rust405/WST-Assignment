@@ -58,10 +58,9 @@
                 padding: 45px;
                 margin-right:10%;
                 margin-left:50%;
-                border: 4px solid #00045B;
                 margin-top:78px;
                 margin-bottom:78px;
-                box-shadow: 4px 4px 6px black;
+                box-shadow: 4px 4px 10px black;
             }
 
             .col-25 {

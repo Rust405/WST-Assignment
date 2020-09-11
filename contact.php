@@ -58,9 +58,9 @@
                 padding: 20px;
                 margin-right:10%;
                 margin-left:50%;
-                border: 3px solid #00045B;
                 margin-top:30px;
                 margin-bottom:30px;
+                box-shadow: 10px 10px 20px;
             }
 
             .col-25 {

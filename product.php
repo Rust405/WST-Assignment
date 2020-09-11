@@ -27,7 +27,7 @@
     </head>
     <body>
         <br>
-        <a style="text-decoration:none;" href="browse.php">&nbsp<strong>←return to browse products..</strong></a>
+        <a style="text-decoration:none;" href="browse.php">&nbsp<strong>←return to browse products...</strong></a>
         <form action="product.php" method="post">
             <?php
             require_once('mysqli_connect.php');
@@ -106,11 +106,12 @@
                 setcookie('productID', $addproductID, time() + (60 * 60));
                 setcookie('quantity', $addquantity, time() + (60 * 60));
             }
+            echo '<script type="text/javascript">window.location="product.php?id=' . $_POST['productID'] . '";</script>';
         }
         ?>
         <script>
             function added() {
-                alert("Product added to cart!");
+                alert("Product added to cart-->");
             }
         </script>
 

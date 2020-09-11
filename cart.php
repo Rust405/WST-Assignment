@@ -2,8 +2,16 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>Cart</title>
+
         <?php
+        
+        if(isset($_COOKIE['quantity'])){
+            echo '<title>My Cart</title>';
+        }
+        else{
+            echo '<title>Cart Empty</title>';
+        }
+        
         include ('header.html');
         ?>
 
@@ -15,6 +23,14 @@
                 box-shadow: 10px 10px 5px #ccc;
                 text-align:center;
                 width: 100%;
+            }
+            .empty{
+                padding: 10px;
+                border-radius: 5px;
+                background-color: #f2f2f2;
+                box-shadow: 10px 10px 5px #ccc;
+                text-align:center;
+                width: 100%;  
             }
             .cart{
                 margin-left:15%;
@@ -35,11 +51,17 @@
                 background-color: #FFEE64;
                 color: black;
             }
+            input[type=submit]:hover{
+                background-color: #ccc;
+                color: black;
+            }
         </style>
 
     </head>
     <body>
+
         <div class="cart">
+            <h1 style="padding:5px;">My Cart</h1>
             <?php
             require_once('mysqli_connect.php');
             // setcookie('productID', '', time() - 3600);
@@ -94,8 +116,8 @@
                 echo '<tr>';
                 echo '<th colspan="3">Product</th>';
                 echo '<th>Quantity</th>';
-                echo '<th>Price</th>';
-                echo '<th>Subtotal</th>';
+                echo '<th>Price (RM)</th>';
+                echo '<th>Subtotal (RM)</th>';
                 echo '<tr>';
 
                 $total = 0;
@@ -111,12 +133,13 @@
                             $productPrice = $row->prod_price;
                         }
                     }
-                    echo '<td style="width:10%;"><a href="cart.php?remove=' . $i . '">Remove</a></td>';
+                    echo '<td style="width:5%;"><a href="cart.php?remove=' . $i . '">Remove</a></td>';
                     echo '<td style="width:20%;">' . '<img src="images/' . $productName . '.jpg" height="128px" width="128px">' . '</td>';
-                    echo '<td>' . $productName . '</td>';
-                    echo '<td>' . $quantityArray[$i] . '</td>';
-                    printf("<td>RM %.2f</td>", $productPrice);
-                    printf("<td>RM %.2f</td>", $productPrice * $quantityArray[$i]);
+                    echo '<td style="width:80%;font-size:16pt;"><strong>' . $productName . '</strong></td>';
+                    echo '<td style="width:20%;">' . $quantityArray[$i] . '</td>';
+                    echo '<td style="width:20%;">';
+                    printf("%.2f</td>", $productPrice);
+                    printf("<td>%.2f</td>", $productPrice * $quantityArray[$i]);
                     $total += $productPrice * $quantityArray[$i];
 
                     echo '<tr>';
@@ -125,12 +148,19 @@
                 printf("%.2f</strong></td></tr>", $total);
 
                 echo '</table>';
-
-                echo '<br><form action="checkout.php" method="post">
+                //show checkout button if logged in
+                if (isset($_SESSION['userID'])) {
+                    echo '<br><form action="checkout.php">
                 <input type="submit" name="submit" value="Checkout">
             </form>';
+                }
+                if (isset($_SESSION['userID']) == false) {
+                    echo '<br><p style="padding:3px;font-size:16pt;">Please <a href="login.php">login</a> or <a href="register.php">register</a> an account to checkout. Your items will remain in cart!</p><br><br><br><br><br>';
+                }
             } else {
-                echo '<div style="margin-bottom:19.25%;margin-top:25%;font-size:18pt;">Cart Empty. <a href="browse.php">Browse</a> for products.</div>';
+                setcookie('productID', '', time() - 3600);
+                setcookie('quantity', '', time() - 3600);
+                echo '<div class="empty" style="margin-bottom:17.5%;margin-top:17%;font-size:18pt;">Cart Empty. <a href="browse.php">Browse</a> for products.</div>';
             }
             ?>
             <br>
@@ -140,7 +170,7 @@
 
 
     </body>
-<?php
-include ('footer.html');
-?>
+    <?php
+    include ('footer.html');
+    ?>
 </html>
