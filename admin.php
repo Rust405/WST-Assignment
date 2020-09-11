@@ -2,38 +2,166 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>Admin Home</title>
+        <title>View Customer</title>
         <?php
         include ('adminheader.html');
         ?>
 
     </head>
     <body>
-        <h1>Admin Home</h1>
-        <h2>Display product list maybe</h2>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent id blandit ex. Fusce a varius erat, non interdum lectus. Sed quis hendrerit mauris, a vehicula nunc.
-            Maecenas dictum tincidunt pellentesque. Pellentesque placerat dolor sit amet neque feugiat faucibus. Donec non velit at leo sodales fermentum et sed mi.
-            Phasellus ultrices nisl a ornare suscipit. Aliquam elementum ultricies erat ac vulputate. Pellentesque dignissim augue ut est pellentesque, sit amet fermentum erat egestas.
-            Nunc ullamcorper, nunc in tincidunt dapibus, purus turpis vestibulum turpis,
-            eu tincidunt odio lectus nec dui. Ut a arcu erat. </p>
+        <h1 style="margin-left:5%;">Customer Records</h1>
 
-        <p>Mauris pharetra dui dui, sodales bibendum est varius egestas. Vivamus laoreet, ligula et porta convallis, nisi risus bibendum sem, et posuere massa purus vel tortor.
-            In a mauris et orci viverra venenatis nec vitae lectus. Fusce mi mauris, pellentesque ut aliquam id, aliquet sed lacus. 
-            Sed iaculis at lorem in gravida. Ut sollicitudin fermentum vehicula.
-            Donec interdum fermentum laoreet. </p>
+        <?php
+        require_once('mysqli_connect.php');
 
-        <p>Nam id quam vitae neque bibendum convallis. Donec feugiat diam in neque tristique ultrices. Aliquam at nunc eros. Duis tincidunt, libero vitae convallis pellentesque,
-            nisi nibh condimentum diam, sed venenatis dolor tellus at leo. Maecenas et ipsum ac diam mollis ornare at quis ligula. Nullam fringilla tortor vel venenatis auctor.
-            In aliquam scelerisque odio nec lacinia. Phasellus vestibulum risus non lacus molestie vestibulum. Morbi luctus magna nec placerat dapibus. Phasellus mollis leo sit amet odio congue,
-            sit amet tincidunt ex bibendum. Duis felis nulla, condimentum non ligula sit amet, rutrum maximus urna. </p>
+        // -------------- VIEW PRODUCT --------------- //
+        $order = 1;
+        $column = "";
+        $arrangement = "";
+        $sorting = "";
 
-        <p>Ut ultrices dolor at rutrum ornare. Nulla malesuada, ante sed euismod finibus, lacus dolor vulputate ex, in facilisis lorem tortor blandit libero. Nulla vitae euismod tellus.
-            Vestibulum consequat eros sed sagittis eleifend. Donec massa urna, dictum a dignissim id, consequat quis ipsum. Duis quis gravida tellus. Vivamus vel sagittis ipsum, eu viverra orci. </p>
+        if (empty($_GET['column']) == false) {
+            $column = " ORDER BY " . $_GET['column'];
+            $sorting = $_GET['column'];
+        }
 
-        <p>Aenean mollis, leo at ornare ultrices, risus nibh convallis arcu, quis sodales ante erat ut justo. Proin consequat fermentum pellentesque. Nam varius accumsan ipsum eget efficitur.
-            Nulla nec odio non erat dapibus aliquet. Aenean placerat interdum eros, eu pharetra metus sollicitudin vitae. Donec eget orci ante. Etiam eu mollis libero. Maecenas porttitor velit id vestibulum aliquam.
-            Sed vel nisl et ex maximus maximus. Aliquam tincidunt enim in venenatis sagittis. In quam nisi, congue eu faucibus dictum, finibus vitae diam. Cras rhoncus lorem vitae felis aliquet lacinia. Duis cursus lacus sit amet leo bibendum euismod.
-            Proin ac velit turpis. Donec lectus mauris, ullamcorper id tortor ut, condimentum vehicula ligula. Nunc commodo risus velit. </p>
+        if (isset($_GET['order']) == true) {
+            $order = $_GET['order'];
+        }
+        if ($order > 3)
+            $order = 1;
+        if ($order == 1)
+            $arrangement = "";
+        else if ($order == 2)
+            $arrangement = " ASC";
+        else if ($order == 3)
+            $arrangement = " DESC";
+
+        $q = "SELECT * FROM customer" . $column . $arrangement;
+        $result = @mysqli_query($dbc, $q);
+
+        if (isset($_POST['check'])) { //if checkboxes clicked
+            $checked = $_POST['check']; //assign checked boxes to array
+            if (isset($_POST['submit'])) { //if delete clicked
+                //assign id array
+                $i = 0; //counter
+
+                foreach ($checked as $c) {
+                    $i += 1; //increment counter
+                    $del = "DELETE FROM customer WHERE cust_id = '$c';";
+                    mysqli_query($dbc, $del); //delete checked record
+                }
+                //count message
+                echo "<p class='ok'>";
+                echo "<strong>$i</strong> records have been deleted.";
+                echo "[<a href=admin.php>Refresh</a>]";
+                echo "</p>";
+            }
+        }
+        //no checks
+        if (isset($_POST['check']) == false) {
+            if (isset($_POST['submit'])) {//if clicked
+                echo "<p class='notoklol'>  <strong>  Nothing selected!</strong> [<a href=admin.php>Refresh</a>]</p>";
+            }
+        }
+
+        echo '<form  style="margin-left:5%;" onSubmit="return sendForm();" action="admin.php" method="post">';
+
+        echo "<table style='text-align:left' border='1' cellspacing='0' cellpadding='5'>";
+        echo "<tr>";
+        echo "<th>";
+        echo "</th>";
+
+        echo "<th><a href=admin.php?column=cust_id&order=";
+        $x = $order + 1;
+        if ($x > 3) {
+            $x = 1;
+        }
+        echo $x . '>Customer ID';
+        if ($order == 2 && $_GET['column'] == "cust_id")
+            echo ' &#x25B2;';
+        if ($order == 3 && $_GET['column'] == "cust_id")
+            echo ' &#x25BC;';
+        echo '</a></th>';
+
+        echo "<th><a href=admin.php?column=cust_fname&order=";
+        $x = $order + 1;
+        if ($x > 3) {
+            $x = 1;
+        }
+        echo $x . '>Customer First Name';
+        if ($order == 2 && $_GET['column'] == "cust_fname")
+            echo ' &#x25B2;';
+        if ($order == 3 && $_GET['column'] == "cust_fname")
+            echo ' &#x25BC;';
+        echo '</a></th>';
+
+        echo "<th><a href=admin.php?column=cust_lname&order=";
+        $x = $order + 1;
+        if ($x > 3) {
+            $x = 1;
+        }
+        echo $x . '>Customer Last Name';
+        if ($order == 2 && $_GET['column'] == "cust_lname")
+            echo ' &#x25B2;';
+        if ($order == 3 && $_GET['column'] == "cust_lname")
+            echo ' &#x25BC;';
+        echo '</a></th>';
+        
+        echo "<th><a href=admin.php?column=cust_email&order=";
+        $x = $order + 1;
+        if ($x > 3) {
+            $x = 1;
+        }
+        echo $x . '>Customer Email';
+        if ($order == 2 && $_GET['column'] == "cust_email")
+            echo ' &#x25B2;';
+        if ($order == 3 && $_GET['column'] == "cust_email")
+            echo ' &#x25BC;';
+        echo '</a></th>';
+        
+        echo "<th><a href=admin.php?column=cust_phone&order=";
+        $x = $order + 1;
+        if ($x > 3) {
+            $x = 1;
+        }
+        echo $x . '>Customer Phone';
+        if ($order == 2 && $_GET['column'] == "cust_phone")
+            echo ' &#x25B2;';
+        if ($order == 3 && $_GET['column'] == "cust_phone")
+            echo ' &#x25BC;';
+        echo '</a></th>';
+
+        if ($result) {
+            while ($row = $result->fetch_object()) {
+                echo "<tr>";
+                echo "<td><input type='checkbox' name=check[] value=$row->cust_id></td>"; //send id as checked value
+                echo "<td>$row->cust_id</td>";
+                echo "<td>$row->cust_fname</td>";
+                echo "<td>$row->cust_lname</td>";
+                echo "<td>$row->cust_email</td>";
+                echo "<td>$row->cust_phone</td>";
+                echo "</tr>";
+            }
+        }
+
+        printf('
+            <tr>
+                <td colspan="6">
+                    %d record(s) returned.
+                </td>
+            </tr>',
+                @mysqli_num_rows($result));
+        echo '</table>';
+
+        echo "<br><input type='submit' name='submit' value='Delete Selected'>";
+        echo "</form>";
+
+        @mysqli_free_result($r);
+        @mysqli_free_result($result);
+        @mysqli_close($dbc);
+        ?>
+
     </body>
     <?php
     include ('adminfooter.html');
