@@ -6,7 +6,39 @@
         <?php
         include ('adminheader.html');
         ?>
+        <script type="text/javascript" src="scripts/jquery-1.9.1.js"></script>
 
+        <script type="text/javascript">
+            $(document).ready(function () {
+
+                $("#showDelete").click(function () {
+                    $("#delete").removeClass("hide");
+                });
+                $("#showDelete").click(function () {
+                    $("#showDelete").addClass("hide");
+                });
+
+            });
+
+        </script>
+           <style>
+            .hide{
+                display:none;
+            }
+            #showList:hover{
+                cursor:pointer;
+            }
+            #showDelete:hover{
+                cursor:pointer;
+            }
+            input[type=submit],button{
+                background-color:#00045B;
+                color:#FFEE64;
+                padding:8px;
+                border-radius:5px;
+            }
+
+        </style>
     </head>
     <body>
         <h1 style="margin-left:5%;">Customer Records</h1>
@@ -61,7 +93,7 @@
         //no checks
         if (isset($_POST['check']) == false) {
             if (isset($_POST['submit'])) {//if clicked
-                echo "<p class='notoklol'>  <strong>  Nothing selected!</strong> [<a href=admin.php>Refresh</a>]</p>";
+                echo "<p class='notok' style='margin-left:5%'>  <strong>  Nothing selected!</strong> [<a href=admin.php>Refresh</a>]</p>";
             }
         }
 
@@ -107,7 +139,7 @@
         if ($order == 3 && $_GET['column'] == "cust_lname")
             echo ' &#x25BC;';
         echo '</a></th>';
-        
+
         echo "<th><a href=admin.php?column=cust_email&order=";
         $x = $order + 1;
         if ($x > 3) {
@@ -119,7 +151,7 @@
         if ($order == 3 && $_GET['column'] == "cust_email")
             echo ' &#x25BC;';
         echo '</a></th>';
-        
+
         echo "<th><a href=admin.php?column=cust_phone&order=";
         $x = $order + 1;
         if ($x > 3) {
@@ -154,7 +186,12 @@
                 @mysqli_num_rows($result));
         echo '</table>';
 
-        echo "<br><input type='submit' name='submit' value='Delete Selected'>";
+        echo '<br><a style="background-color:#00045B;color:#FFEE64;border-radius:4px;padding:10px;" id="showDelete">Delete Selected</a>';
+        echo "<div id='delete' class='hide'><br><input type='submit' name='submit' value='Confirm Delete'>";
+        echo '&nbsp<button type="button" onclick="window.location=';
+        echo "'admin.php'";
+        echo'">Cancel</button>';
+        echo "</div>";
         echo "</form>";
 
         @mysqli_free_result($r);

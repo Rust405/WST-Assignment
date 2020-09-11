@@ -38,6 +38,11 @@
         } else {
         echo '<a href="login.php">Login</a>';
         }
+
+        if (isset($_SESSION['userName'])) {
+        echo "<a href='myOrder.php'>" ."My Orders" . "</a>";
+        } 
+
         ?>
 
         <?php

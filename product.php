@@ -74,7 +74,7 @@
 
             echo "<tr>";
             printf("<td><strong>Price: </strong>RM%.2f</td>", $productPrice);
-            echo '<td>Quantity:  <input type="number" name="quantity" min="1" max="20" value="1"></td>';
+            echo '<td>Quantity:  <input type="number" name="quantity" min="1" max="99" value="1"></td>';
             echo "</tr>";
 
             echo "<tr>";

@@ -277,7 +277,7 @@
 
         //search no results
         if ($numOfResult == 0) {
-            echo "<p>&nbsp; No such product exists!</p>";
+            echo "<p>&nbsp; No such product(s) exists!</p>";
         }
         //default
         if ($numOfResult > 0) {

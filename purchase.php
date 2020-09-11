@@ -61,7 +61,7 @@
             //echo "$cardNumber<br>";
 
 
-            $order = "INSERT INTO orders (cust_id,product_list,order_quantity,order_date,delivery_address) VALUES ('$custID','$productList','$orderQuantity','$date','$deliveryAddress')";
+            $order = "INSERT INTO orders (cust_id,product_list,order_quantity,order_date,delivery_address,order_status) VALUES ('$custID','$productList','$orderQuantity','$date','$deliveryAddress','Order Pending')";
 
             //create order
             @mysqli_query($dbc, $order);

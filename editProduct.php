@@ -23,11 +23,16 @@
                 resize: vertical;
             }
 
-
             textarea{
                 resize:none;
                 width: 100%; 
                 font-size:11pt;
+            }
+            input[type=submit],button{
+                background-color:#00045B;
+                color:#FFEE64;
+                padding:8px;
+                border-radius:5px;
             }
         </style>
 
@@ -97,10 +102,10 @@
             }
 
             if ($ok == true) {
-          
+
                 $edit = "UPDATE product SET prod_name = '$name', prod_description = '$description', prod_price = '$price' WHERE prod_id ='$id'";
                 @mysqli_query($dbc, $edit);
-                
+
                 echo '<div style="margin-left:5%;background-color:LightBlue; color:DarkBlue; border: solid 1px; margin-right: 68%; padding-left:10px; padding-top:10px; padding-bottom:10px;">';
                 echo '<b>' . $name . '</b> has been edited. <br>[<a href=addProduct.php> Return to Product List </a>]';
                 echo '</div>';
@@ -135,13 +140,13 @@
             <br>
             <input type='submit' name='submit' value='Update Product Details'>
 
-            <button type="button"  onclick="window.location = 'admin.php'">Cancel</button> 
+            <button type="button"  onclick="window.location = 'addProduct.php'">Cancel</button> 
 
         </form>
 
 
     </body>
-<?php
-include ('footer.html');
-?>
+    <?php
+    include ('adminfooter.html');
+    ?>
 </html>

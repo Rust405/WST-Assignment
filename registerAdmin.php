@@ -71,7 +71,7 @@
                 margin-right:10%;
                 margin-left:50%;
                 margin-top:3.5%;
-                margin-bottom:3.25%;
+                margin-bottom:4%;
                 box-shadow: 4px 4px 10px black;
             }
 
