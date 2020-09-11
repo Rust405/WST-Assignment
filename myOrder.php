@@ -81,7 +81,7 @@
         $numOfResult = @mysqli_num_rows($result);
 
         if ($numOfResult == 0) {
-            echo "<p>&nbsp; No pending order(s)!</p>";
+            echo "<p style='margin-left:35%;margin-top:15%;margin-bottom:15%;font-size:18pt;color:white;'>&nbsp;&nbsp; <strong>No pending order(s)!</strong></p>";
         }
 
         if ($numOfResult > 0) {
